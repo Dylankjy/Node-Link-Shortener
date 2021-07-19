@@ -4,6 +4,7 @@ const config = require('../config')
 // Express
 const express = require('express')
 const router = express.Router()
+const { check } = require('express-validators')
 
 // MongoDB
 const { MongoClient } = require('mongodb')
@@ -28,7 +29,12 @@ const CookieOptions = {
     path: '/',
 }
 
-router.get('/', (req, res) => {
+router.get('/', [check(req.cookies.shortenedLink).isLength({ max: 7 }).trim().escape()], async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).send('Bad Request')
+    }
+
     const metadata = {
         app: {
             name: config.app.name,
@@ -47,7 +53,7 @@ router.post('/', (req, res) => {
 
     const CreateSchema = {
         'url': sanitize(urlToShort),
-        'short': short().fromUUID(uuid.v1()).substring(0, 6), // Generate a new UUID using v1 and only use the first 6 characters
+        'short': short().fromUUID(uuid.v1()).substring(0, 7), // Generate a new UUID using v1 and only use the first 6 characters
     }
 
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
