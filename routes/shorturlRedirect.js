@@ -15,8 +15,7 @@ const collection = config.mongo.collection
 const { findDB } = require('../app/db')
 
 // MongoDB sanitize
-sanitize = require('mongo-sanitize');
-
+const sanitize = require('mongo-sanitize')
 
 router.get('/:shorturl', (req, res) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {

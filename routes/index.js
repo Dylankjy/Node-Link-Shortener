@@ -12,13 +12,13 @@ const dbName = config.mongo.db
 const collection = config.mongo.collection
 
 const uuid = require('uuid')
-const short = require('short-uuid');
+const short = require('short-uuid')
 
 // Database wrapper
 const { insertDB, findDB } = require('../app/db')
 
 // MongoDB sanitize
-sanitize = require('mongo-sanitize');
+const sanitize = require('mongo-sanitize')
 
 // Cookie Options
 const CookieOptions = {
@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
         },
         data: {
             shortenedLink: req.cookies.shortenedLink,
-        }
+        },
     }
     res.render('index', metadata)
 })
@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
         if (err) throw err
         const db = client.db(dbName)
-        
+
         findDB(db, collection, { url: CreateSchema.url }, (data) => {
             // If there's already an existing shortened link for this url, use that instead of creating a new one.
             if (data.length !== 0) {
