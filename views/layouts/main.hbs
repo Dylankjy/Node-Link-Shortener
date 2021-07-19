@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - {{app.name}}</title>
+
+    <link rel="stylesheet" href="/third_party/bulma/bulma.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
+    <script src="/third_party/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    <section class="section has-background-black is-bold is-medium">
+        <div class="container">
+            <h1 class="title has-text-white is-2">Node Link Shortener</h1>
+            <p class="subtitle has-text-grey">Made with <span class="has-text-danger"><i
+                        class="fas fa-heart"></i></span> by <a class="has-text-grey-light"
+                    href="https://github.com/Dylankjy" target="_blank" referrerpolicy="none">Dylan Kok</a></p>
+        </div>
+    </section>
+
+    <main class="section">
+        <div class="container">
+            <h4 class="title is-3"><i class="fas fa-link"></i>&nbsp;Start here</h4>
+            <p class="subtitle">Type or paste your URL here and click 'shorten'.</p>
+            <form method="POST">
+                <div class="field is-grouped">
+                    <p class="control is-expanded">
+                        <input class="input is-dark" type="url" placeholder="http:// or https://" name="urlToShort" required>
+                    </p>
+                    <p class="control">
+                        <button type="submit" class="button is-dark">
+                            <i class="fas fa-compress"></i>&ensp;Shorten
+                        </button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    {{#if data.shortenedLink}}
+    <div id="successModal" class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="box p-6">
+                <h2 class="title has-text-centered has-text-success"><i class="fas fa-check"></i>&nbsp;Shorten!</h2>
+                <p class="subtitle has-text-centered">You can now use the short link instead</p>
+                <div class="control">
+                    <input class="input is-success" type="url" value="http://{{app.domain}}/{{data.shortenedLink}}" readonly>
+                </div>
+                <br>
+                <button class="button is-light is-fullwidth" onclick="$('#successModal').fadeOut('fast')"><i class="fas fa-times"></i>&ensp;Close</button>
+            </div>
+        </div>
+    </div>
+    {{/if}}
+</body>
+
+</html>
