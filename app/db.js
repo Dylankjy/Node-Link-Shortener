@@ -1,7 +1,7 @@
 // From TanukiHQ's Genkan, Licensed under GPLv3.
 // Source: https://github.com/TanukiHQ/Genkan/blob/main/genkan/db.js
 
-insertDB = function (db, coll, docs, callback) {
+insertDB = function(db, coll, docs, callback) {
     // Get the documents collection
     const collection = db.collection(coll)
     // Insert some documents
